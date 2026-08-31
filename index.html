@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>장건웅 — Software Architect</title>
+<meta name="description" content="장건웅 포트폴리오 — AI·Vision·Backend 시스템 아키텍처, 물류 최적화, MLOps.">
+<script src="./assets/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./assets/styles.css">
+<script src="./assets/ds-bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text);
+    font-family: "Inter", "Noto Sans KR", system-ui, sans-serif; word-break: keep-all; }
+  h1, h2, h3, h4, h5, h6 { font-family: "Inter", "Noto Sans KR", system-ui, sans-serif; }
+  a { color: var(--color-accent-300); text-decoration: none; }
+  a:hover { color: var(--color-accent-200); text-decoration: underline; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: radial-gradient(120% 60% at 12% -10%, #1e2138 0%, var(--color-bg) 62%);">
+
+  <div style="position: sticky; top: 0; z-index: 20; backdrop-filter: blur(10px); background: color-mix(in srgb, var(--color-bg) 84%, transparent); border-bottom: 1px solid var(--color-neutral-900);">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 12px 32px; display: flex; align-items: center; gap: 24px;">
+      <div style="display: flex; align-items: baseline; gap: 10px; margin-right: auto;">
+        <span style="font-size: 15px; font-weight: 500; letter-spacing: -0.01em;">{{ t.name }}</span>
+        <span style="font-size: 12px; color: var(--color-neutral-500);">{{ t.roleShort }}</span>
+      </div>
+      <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; gap: 20px; font-size: 13px; color: var(--color-neutral-400);">
+          <a href="#work" style="color: inherit;">{{ t.navWork }}</a>
+          <a href="#release" style="color: inherit;">{{ t.navRelease }}</a>
+          <a href="#career" style="color: inherit;">{{ t.navCareer }}</a>
+          <a href="#stack" style="color: inherit;">{{ t.navStack }}</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ detail }}" hint-placeholder-val="{{ false }}">
+        <button type="button" class="btn btn-ghost" onClick="{{ closeDetail }}" style="font-size: 13px; color: var(--color-neutral-300);">{{ t.back }}</button>
+      </sc-if>
+      <div style="display: flex; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); overflow: hidden;">
+        <button type="button" onClick="{{ setKo }}" style="{{ koBtnStyle }}">KO</button>
+        <button type="button" onClick="{{ setEn }}" style="{{ enBtnStyle }}">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <section style="max-width: 1080px; margin: 0 auto; padding: 96px 32px 72px;">
+      <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-400); margin-bottom: 22px;">{{ t.kicker }}</div>
+      <h1 style="font-size: 56px; line-height: 1.16; letter-spacing: -0.03em; margin: 0 0 28px; max-width: 26ch;">{{ t.heroTitle }}</h1>
+      <p style="font-size: 18px; line-height: 1.65; color: var(--color-neutral-300); max-width: 62ch; margin: 0 0 20px; text-wrap: pretty;">{{ t.heroLead }}</p>
+      <p style="font-size: 15px; line-height: 1.7; color: var(--color-neutral-500); max-width: 62ch; margin: 0 0 40px; text-wrap: pretty;">{{ t.heroSub }}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px 12px; margin-bottom: 44px;">
+        <sc-for list="{{ facts }}" as="f" hint-placeholder-count="4">
+          <div style="display: flex; align-items: baseline; gap: 8px; padding: 8px 14px; border: 1px solid var(--color-neutral-800); border-radius: 999px; font-size: 13px;">
+            <span style="color: var(--color-neutral-500);">{{ f.label }}</span>
+            <span style="color: var(--color-neutral-200);">{{ f.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="#work" class="btn btn-primary" style="font-size: 14px;">{{ t.ctaWork }}</a>
+        <a href="mailto:dandegw@gmail.com" style="font-size: 14px; color: var(--color-neutral-400);">dandegw@gmail.com</a>
+      </div>
+    </section>
+
+    <section style="background: linear-gradient(180deg, var(--color-section) 0%, #1f2350 100%); border-top: 1px solid var(--color-section-glow); border-bottom: 1px solid var(--color-section-glow);">
+      <div style="max-width: 1080px; margin: 0 auto; padding: 52px 32px;">
+        <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-300); margin-bottom: 28px;">{{ t.metricsTitle }}</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 32px 28px;">
+          <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+            <div>
+              <div style="font-size: 42px; line-height: 1; letter-spacing: -0.03em; color: var(--color-neutral-100); margin-bottom: 10px;">{{ m.value }}</div>
+              <div style="font-size: 14px; color: var(--color-neutral-200); margin-bottom: 4px;">{{ m.label }}</div>
+              <div style="font-size: 12px; color: var(--color-accent-300);">{{ m.note }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" style="max-width: 1080px; margin: 0 auto; padding: 88px 32px 0; scroll-margin-top: 72px;">
+      <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.workKicker }}</h2>
+      <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 14px;">{{ t.workTitle }}</h3>
+      <p style="font-size: 15px; color: var(--color-neutral-500); max-width: 60ch; margin: 0 0 40px;">{{ t.workLead }}</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(430px, 1fr)); gap: 20px;">
+        <sc-for list="{{ featured }}" as="p" hint-placeholder-count="4">
+          <button type="button" onClick="{{ p.open }}" style="text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 14px; padding: 26px; background: var(--color-surface); border: 1px solid var(--color-neutral-800); border-radius: var(--radius-lg); color: var(--color-text); font-family: inherit; transition: border-color .18s, transform .18s;" style-hover="border-color: var(--color-accent-600); transform: translateY(-2px);">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--color-neutral-500);">
+              <span style="color: var(--color-accent-400);">{{ p.num }}</span>
+              <span>{{ p.company }}</span>
+              <span style="color: var(--color-neutral-700);">·</span>
+              <span>{{ p.period }}</span>
+            </div>
+            <div>
+              <div style="font-size: 21px; font-weight: 500; letter-spacing: -0.015em; margin-bottom: 8px;">{{ p.title }}</div>
+              <div style="font-size: 14px; line-height: 1.6; color: var(--color-neutral-400); text-wrap: pretty;">{{ p.subtitle }}</div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto;">
+              <sc-for list="{{ p.tags }}" as="tg" hint-placeholder-count="4">
+                <span style="font-size: 11px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--color-neutral-800); color: var(--color-neutral-400);">{{ tg }}</span>
+              </sc-for>
+            </div>
+            <div style="font-size: 13px; color: var(--color-accent-400);">{{ t.readMore }}</div>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="release" style="max-width: 1080px; margin: 0 auto; padding: 88px 32px 0; scroll-margin-top: 72px;">
+      <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.releaseKicker }}</h2>
+      <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 14px;">{{ t.releaseTitle }}</h3>
+      <p style="font-size: 15px; color: var(--color-neutral-500); max-width: 60ch; margin: 0 0 40px;">{{ t.releaseLead }}</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 26px;">
+        <sc-for list="{{ releases }}" as="v" hint-placeholder-count="4">
+          <figure style="margin: 0; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface);">
+            <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--color-neutral-900);">
+              <iframe src="{{ v.embed }}" title="{{ v.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen="true" referrerpolicy="strict-origin-when-cross-origin" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;"></iframe>
+            </div>
+            <figcaption style="padding: 20px 22px 22px;">
+              <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--color-neutral-500); margin-bottom: 8px;">
+                <span style="color: var(--color-accent-400);">{{ v.company }}</span>
+                <span style="color: var(--color-neutral-700);">·</span>
+                <span>{{ v.period }}</span>
+              </div>
+              <div style="font-size: 19px; font-weight: 500; letter-spacing: -0.015em; margin-bottom: 8px; color: var(--color-text);">{{ v.title }}</div>
+              <div style="font-size: 13.5px; line-height: 1.6; color: var(--color-neutral-400); margin-bottom: 12px; text-wrap: pretty;">{{ v.body }}</div>
+              <a href="{{ v.url }}" target="_blank" rel="noopener" style="font-size: 13px;">{{ t.watchOnYoutube }}</a>
+            </figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="career" style="max-width: 1080px; margin: 0 auto; padding: 88px 32px 0; scroll-margin-top: 72px;">
+      <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.careerKicker }}</h2>
+      <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 40px;">{{ t.careerTitle }}</h3>
+      <div style="border-left: 1px solid var(--color-neutral-800); padding-left: 28px; display: flex; flex-direction: column; gap: 4px;">
+        <sc-for list="{{ timeline }}" as="c" hint-placeholder-count="6">
+          <div style="position: relative; display: grid; grid-template-columns: 168px 1fr; gap: 8px 24px; padding: 18px 0; border-bottom: 1px solid var(--color-neutral-900);">
+            <div style="position: absolute; left: -33px; top: 26px; width: 9px; height: 9px; border-radius: 999px; background: var(--color-bg); border: 1px solid var(--color-neutral-600);"></div>
+            <div>
+              <div style="font-size: 13px; color: var(--color-neutral-300); font-variant-numeric: tabular-nums;">{{ c.period }}</div>
+              <div style="font-size: 12px; color: var(--color-neutral-600);">{{ c.length }}</div>
+            </div>
+            <div>
+              <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 6px;">
+                <span style="font-size: 17px; font-weight: 500;">{{ c.company }}</span>
+                <span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--color-accent-800); background: var(--color-accent-900); color: var(--color-accent-300);">{{ c.role }}</span>
+                <span style="font-size: 12px; color: var(--color-neutral-600);">{{ c.dept }}</span>
+              </div>
+              <sc-if value="{{ showTimelineSummary }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size: 14px; line-height: 1.6; color: var(--color-neutral-400); max-width: 64ch; text-wrap: pretty;">{{ c.summary }}</div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="font-size: 12.5px; line-height: 1.7; color: var(--color-neutral-600); max-width: 76ch; margin: 20px 0 0;">{{ t.careerNote }}</p>
+    </section>
+
+    <sc-if value="{{ showOthers }}" hint-placeholder-val="{{ true }}">
+    <section style="max-width: 1080px; margin: 0 auto; padding: 88px 32px 0;">
+      <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.othersKicker }}</h2>
+      <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 40px;">{{ t.othersTitle }}</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px;">
+        <sc-for list="{{ others }}" as="o" hint-placeholder-count="6">
+          <div style="padding: 20px 22px; border: 1px solid var(--color-neutral-900); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-surface) 55%, transparent);">
+            <div style="font-size: 12px; color: var(--color-neutral-600); margin-bottom: 8px;">{{ o.meta }}</div>
+            <div style="font-size: 16px; font-weight: 500; margin-bottom: 8px;">{{ o.title }}</div>
+            <div style="font-size: 13.5px; line-height: 1.6; color: var(--color-neutral-400); text-wrap: pretty;">{{ o.body }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <section id="stack" style="max-width: 1080px; margin: 0 auto; padding: 88px 32px 0; scroll-margin-top: 72px;">
+      <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.stackKicker }}</h2>
+      <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 40px;">{{ t.stackTitle }}</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 34px 40px;">
+        <sc-for list="{{ techGroups }}" as="g" hint-placeholder-count="4">
+          <div>
+            <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-400); margin-bottom: 14px;">{{ g.name }}</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 7px;">
+              <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="6">
+                <span style="font-size: 12.5px; padding: 5px 11px; border-radius: var(--radius-sm); background: var(--color-neutral-900); color: var(--color-neutral-300);">{{ it }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <footer style="max-width: 1080px; margin: 0 auto; padding: 96px 32px 72px;">
+      <div style="height: 1px; background: linear-gradient(to right, transparent, var(--color-divider) 48px, var(--color-divider) calc(100% - 48px), transparent); margin-bottom: 34px;"></div>
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px;">
+        <div>
+          <div style="font-size: 26px; letter-spacing: -0.02em; margin-bottom: 10px;">{{ t.footTitle }}</div>
+          <a href="mailto:dandegw@gmail.com" style="font-size: 15px;">dandegw@gmail.com</a>
+        </div>
+        <div style="font-size: 12px; color: var(--color-neutral-600); text-align: right;">{{ t.footNote }}</div>
+      </div>
+    </footer>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ detail }}" hint-placeholder-val="{{ false }}">
+  <article style="max-width: 1080px; margin: 0 auto; padding: 64px 32px 96px; animation: riseIn .3s ease both;">
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--color-neutral-500); margin-bottom: 22px;">
+      <span style="color: var(--color-accent-400);">{{ detail.num }}</span>
+      <span>{{ detail.company }}</span>
+      <span style="color: var(--color-neutral-700);">·</span>
+      <span>{{ detail.period }}</span>
+    </div>
+    <h1 style="font-size: 44px; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 16px; max-width: 26ch;">{{ detail.title }}</h1>
+    <p style="font-size: 17px; line-height: 1.6; color: var(--color-accent-300); max-width: 60ch; margin: 0 0 26px;">{{ detail.subtitle }}</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px 40px; padding: 20px 0; border-top: 1px solid var(--color-neutral-900); border-bottom: 1px solid var(--color-neutral-900); margin-bottom: 44px;">
+      <div>
+        <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 6px;">{{ t.labelRole }}</div>
+        <div style="font-size: 14px; color: var(--color-neutral-200);">{{ detail.role }}</div>
+      </div>
+      <div>
+        <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600); margin-bottom: 6px;">{{ t.labelStack }}</div>
+        <div style="font-size: 14px; color: var(--color-neutral-200);">{{ detail.stackLine }}</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px;">
+      <div>
+        <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 16px;">{{ t.secOverview }}</h2>
+        <sc-for list="{{ detail.overview }}" as="para" hint-placeholder-count="1">
+          <p style="font-size: 16px; line-height: 1.8; color: var(--color-neutral-300); max-width: 74ch; margin: 0 0 16px; text-wrap: pretty;">{{ para }}</p>
+        </sc-for>
+      </div>
+
+      <div>
+        <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 16px;">{{ t.secArch }}</h2>
+        <div style="border: 1px solid var(--color-neutral-800); border-radius: var(--radius-lg); padding: 28px; background: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 70%, transparent), transparent);">
+
+          <sc-if value="{{ detail.isBilliup }}" hint-placeholder-val="{{ false }}">
+            <div style="display: grid; gap: 22px;">
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">INPUT</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Camera (Mini PC + Projector)</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">HSV · Adaptive Threshold · Gaussian/Median</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Ball Detection</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-accent-400);">TRACKING</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">Kalman Filter</div>
+                  <span style="color: var(--color-accent-400);">⇄</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">Physics Sim (collision · cushion angle)</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Trajectory / turn</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">GAME</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">ROI Mission Zone</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Score / Passing 판정</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">Auto-labeling → Supervised Dataset</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">INTEGRITY</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Background Subtraction</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Shadow removal · Cue mask</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Accel / vector 판별</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ detail.isMcp }}" hint-placeholder-val="{{ false }}">
+            <div style="display: grid; gap: 22px;">
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">CLIENT</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Developer</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Claude Code (MCP Client)</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">MCP Server</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-accent-400);">ORCHESTRATION</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">Supervisor Agent (LangGraph)</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="display: flex; gap: 8px;">
+                    <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">TMS Agent</div>
+                    <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">WMS Agent</div>
+                    <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">OMS Agent</div>
+                  </div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Aggregation Node</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">RETRIEVAL</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">pgvector (function-level chunks + docstring)</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Code RAG</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">gRPC · Microservices</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">FALLBACK</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px dashed var(--color-accent-700); border-radius: var(--radius-md); font-size: 13px; color: var(--color-accent-300);">Human-in-the-loop (Checkpointer 재질의)</div>
+                  <span style="color: var(--color-neutral-600);">↺</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Logging · Monitoring</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ detail.isEta }}" hint-placeholder-val="{{ false }}">
+            <div style="display: grid; gap: 22px;">
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">TRAIN</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">국토교통부 도로 데이터 누적 → trigger</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">GAT on Line Graph</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">MLflow (experiment · version)</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">GATE</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">vs. 카카오맵 ETA 오차율 임계치</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">Auto Deploy</div>
+                  <span style="color: var(--color-neutral-600);">·</span>
+                  <div style="padding: 9px 13px; border: 1px dashed var(--color-neutral-700); border-radius: var(--radius-md); font-size: 13px; color: var(--color-neutral-400);">Rollback = manual</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-accent-400);">SERVE</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">OSRM 경로 탐색</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">Redis 보정 테이블 조회</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">구간 길이 ÷ 보정 속도 → 합산 ETA</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">LOOP</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">배송 완료 시간 vs 예측 오차 모니터링</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px dashed var(--color-accent-700); border-radius: var(--radius-md); font-size: 13px; color: var(--color-accent-300);">즉시 bias 보정 (단기)</div>
+                  <span style="color: var(--color-neutral-600);">↺</span>
+                  <div style="padding: 9px 13px; border: 1px dashed var(--color-accent-700); border-radius: var(--radius-md); font-size: 13px; color: var(--color-accent-300);">재학습 테스트 케이스 편입 (장기)</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ detail.isDesign }}" hint-placeholder-val="{{ false }}">
+            <div style="display: grid; gap: 22px;">
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">PROMPT</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">자연어 요청</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">Llama LLM → SD prompt (화풍·구도 키워드)</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: start;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-accent-400); padding-top: 10px;">3 CASES</div>
+                <div style="display: grid; gap: 8px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">A · prompt only → Stable Diffusion</div>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">B · 상품 이미지 보존 → Mask Inpainting + ControlNet (윤곽·조명 정합)</div>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">C · 과거 결과물 계승 → VectorDB 이미지 검색 + ControlNet reference-only</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">STYLE</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-md); background: var(--color-accent-900); font-size: 13px; color: var(--color-accent-200);">도메인별 LoRA 실시간 로드</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">Image out</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">VERIFY</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">LLaVA 정합성 체크 (유저 쿼리 재질의)</div>
+                  <span style="color: var(--color-neutral-600);">+</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">negative prompt 필터링 체크</div>
+                  <span style="color: var(--color-accent-400);">↺</span>
+                  <div style="padding: 9px 13px; border: 1px dashed var(--color-accent-700); border-radius: var(--radius-md); font-size: 13px; color: var(--color-accent-300);">실패 시 prompt 조정 재생성</div>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 16px; align-items: center;">
+                <div style="font-size: 11px; letter-spacing: 0.08em; color: var(--color-neutral-600);">RELEASE</div>
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">고정 테스트 케이스 LoRA 회귀 테스트</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">LLaVA 1차 채점</div>
+                  <span style="color: var(--color-neutral-600);">→</span>
+                  <div style="padding: 9px 13px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-md); background: var(--color-surface); font-size: 13px; color: var(--color-neutral-200);">최종 승인 후 배포</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+        <div style="font-size: 12.5px; color: var(--color-neutral-600); margin-top: 12px;">{{ detail.diagramNote }}</div>
+      </div>
+
+      <div>
+        <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 16px;">{{ t.secBuild }}</h2>
+        <sc-for list="{{ detail.build }}" as="para" hint-placeholder-count="3">
+          <p style="font-size: 16px; line-height: 1.85; color: var(--color-neutral-300); max-width: 74ch; margin: 0 0 22px; text-wrap: pretty;">{{ para }}</p>
+        </sc-for>
+      </div>
+
+      <div>
+        <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 22px;">{{ t.secTrouble }}</h2>
+        <div style="display: flex; flex-direction: column; gap: 18px; max-width: 88ch;">
+          <sc-for list="{{ detail.trouble }}" as="tc" hint-placeholder-count="2">
+            <div style="padding: 24px 26px; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--color-surface) 70%, transparent); display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 14px 20px; align-items: baseline;">
+              <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-400);">{{ t.tSymptom }}</div>
+              <div style="font-size: 15px; line-height: 1.7; color: var(--color-neutral-200); text-wrap: pretty;">{{ tc.symptom }}</div>
+              <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600);">{{ t.tCause }}</div>
+              <div style="font-size: 14.5px; line-height: 1.7; color: var(--color-neutral-400); text-wrap: pretty;">{{ tc.cause }}</div>
+              <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-600);">{{ t.tAction }}</div>
+              <div style="font-size: 14.5px; line-height: 1.7; color: var(--color-neutral-300); text-wrap: pretty;">{{ tc.action }}</div>
+              <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-400); padding-top: 14px; border-top: 1px solid var(--color-neutral-900);">{{ t.tResult }}</div>
+              <div style="font-size: 14.5px; line-height: 1.7; color: var(--color-accent-200); text-wrap: pretty; padding-top: 14px; border-top: 1px solid var(--color-neutral-900);">{{ tc.result }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div>
+        <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 16px;">{{ t.secResults }}</h2>
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 82ch;">
+          <sc-for list="{{ detail.results }}" as="r" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 12px; align-items: start;">
+              <span style="color: var(--color-accent-500); font-size: 13px; line-height: 1.7;">—</span>
+              <span style="font-size: 15px; line-height: 1.7; color: var(--color-neutral-300); text-wrap: pretty;">{{ r }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding-top: 12px;">
+        <button type="button" class="btn btn-primary" onClick="{{ closeDetail }}">{{ t.back }}</button>
+        <sc-if value="{{ detail.next }}" hint-placeholder-val="{{ false }}">
+          <button type="button" class="btn btn-ghost" onClick="{{ detail.openNext }}" style="color: var(--color-neutral-300);">{{ t.nextLabel }} {{ detail.next }} →</button>
+        </sc-if>
+      </div>
+    </div>
+  </article>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ko&quot;,&quot;en&quot;],&quot;default&quot;:&quot;ko&quot;,&quot;tsType&quot;:&quot;'ko' | 'en'&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showOtherProjects&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;compactTimeline&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const D = {
+  facts: {
+    ko: [
+      { label: "총 경력", value: "18년 3개월" },
+      { label: "연구소장 역할", value: "10년" },
+      { label: "해외 근무", value: "일본 3년 6개월" },
+      { label: "특허", value: "등록 2건 · 출원 1건" }
+    ],
+    en: [
+      { label: "Experience", value: "18 yrs 3 mos" },
+      { label: "As R&D Director", value: "10 yrs" },
+      { label: "Overseas", value: "Japan, 3 yrs 6 mos" },
+      { label: "Patents", value: "2 granted · 1 filed" }
+    ]
+  },
+  metrics: {
+    ko: [
+      { value: "38%", label: "미배차율 개선", note: "GeoHash · K-Means 동적 권역 배차" },
+      { value: "17%", label: "평균 ETA 오차율 개선", note: "GAT 단일 모델 · OSRM 기준 대비" },
+      { value: "3.5×", label: "대량배차 처리속도 향상", note: "SLA 기반 미들마일 배차 엔진" },
+      { value: "35%", label: "적재 Balance Index 개선", note: "물량 배분 알고리즘 · 실서비스 적용" }
+    ],
+    en: [
+      { value: "38%", label: "fewer unassigned orders", note: "GeoHash + K-Means dynamic zoning" },
+      { value: "17%", label: "lower mean ETA error", note: "single GAT model vs. OSRM baseline" },
+      { value: "3.5×", label: "faster bulk dispatch throughput", note: "SLA-driven middle-mile engine" },
+      { value: "35%", label: "better load Balance Index", note: "volume allocation, shipped to production" }
+    ]
+  },
+  timeline: {
+    ko: [
+      { period: "2025.09 – 2026.05", length: "9개월", company: "㈜에이에프비", role: "연구소장", dept: "기업부설연구소", summary: "OpenCV 기반 당구공 인식·트래킹, Kalman Filter 위치 예측, 게임/트레이닝 플랫폼 개발" },
+      { period: "2023.12 – 2025.06", length: "1년 7개월", company: "㈜위밋모빌리티", role: "연구소장 / 팀장", dept: "엔진개발팀", summary: "물류 최적화 플랫폼 아키텍처, VRP 배차 엔진 고도화, ETA 예측 MLOps 파이프라인 구축" },
+      { period: "2022.10 – 2023.11", length: "1년 2개월", company: "㈜데라블", role: "연구소장", dept: "기술연구소", summary: "AI 이미지 생성 파이프라인, Design Staff / Gold&Rose 플랫폼 설계·개발" },
+      { period: "2022.03 – 2022.10", length: "8개월", company: "㈜플렉스미", role: "연구소장", dept: "기술연구소", summary: "AI·NFT 기반 Personal AI Shopper, CNN/GAN 패션 서비스 연구" },
+      { period: "2021.05 – 2022.03", length: "11개월", company: "㈜코어닥스", role: "팀장", dept: "개발3팀", summary: "개인정보 암호화 배치, 거래소 Push 서버, 블록체인 노드 구축" },
+      { period: "2018.05 – 2020.12", length: "2년 8개월", company: "㈜언더핀", role: "연구소장", dept: "기술연구소", summary: "이중토큰 이코노미 설계 및 특허 출원, Hyperledger Fabric Mainnet 개발·운영" },
+      { period: "2017.09 – 2018.05", length: "9개월", company: "씨랩(C.Lab)", role: "연구소장", dept: "기술연구소", summary: "한국어 특화 음성인식(TTS) 엔진 연구·개발, Tacotron 기반 음성합성" },
+      { period: "2016.05 – 2017.09", length: "1년 5개월", company: "㈜씨사이드코리아", role: "연구소장", dept: "기술연구소", summary: "TensorFlow 기반 자연어처리(NLP) 학습모델 구현 및 특허 등록" },
+      { period: "2011.09 – 2016.02", length: "4년 6개월", company: "대상정보기술㈜", role: "책임연구원", dept: "U-biz 기술연구소", summary: "iOS 앱 및 서버 개발(맛집·칼로리·식품평가), 딥러닝 기반 식품분류 연구" },
+      { period: "2007.10 – 2011.07", length: "3년 10개월", company: "G&G Service (일본)", role: "사원 / 팀장", dept: "플랫폼개발팀", summary: "은행 업무시스템(SI) 개발, iPad 동화·교육 서비스 기획·개발" }
+    ],
+    en: [
+      { period: "2025.09 – 2026.05", length: "9 mos", company: "AFB Inc.", role: "R&D Director", dept: "Corporate research lab", summary: "OpenCV billiard-ball detection and tracking, Kalman Filter position prediction, game and training platform" },
+      { period: "2023.12 – 2025.06", length: "1 yr 7 mos", company: "WeMeet Mobility", role: "R&D Director / Lead", dept: "Engine development", summary: "Logistics optimization platform architecture, VRP dispatch engine, ETA prediction MLOps pipeline" },
+      { period: "2022.10 – 2023.11", length: "1 yr 2 mos", company: "Derable Inc.", role: "R&D Director", dept: "Technology lab", summary: "AI image generation pipeline; Design Staff and Gold&Rose platform design and development" },
+      { period: "2022.03 – 2022.10", length: "8 mos", company: "Flexme Inc.", role: "R&D Director", dept: "Technology lab", summary: "AI/NFT Personal AI Shopper; CNN and GAN research for fashion commerce" },
+      { period: "2021.05 – 2022.03", length: "11 mos", company: "Coredax Inc.", role: "Team Lead", dept: "Development team 3", summary: "PII encryption batch, exchange push server, blockchain node operations" },
+      { period: "2018.05 – 2020.12", length: "2 yrs 8 mos", company: "Underpin Inc.", role: "R&D Director", dept: "Technology lab", summary: "Dual-token economy design (patent filed), Hyperledger Fabric mainnet development and operation" },
+      { period: "2017.09 – 2018.05", length: "9 mos", company: "C.Lab", role: "R&D Director", dept: "Technology lab", summary: "Korean-specialized speech engine research; Tacotron-based speech synthesis" },
+      { period: "2016.05 – 2017.09", length: "1 yr 5 mos", company: "CSIDEKOREA Inc.", role: "R&D Director", dept: "Technology lab", summary: "TensorFlow NLP model implementation, patent granted" },
+      { period: "2011.09 – 2016.02", length: "4 yrs 6 mos", company: "Daesang Information Technology", role: "Senior Researcher", dept: "U-biz research lab", summary: "iOS apps and servers (restaurants, calories, food evaluation); deep-learning food classification" },
+      { period: "2007.10 – 2011.07", length: "3 yrs 10 mos", company: "G&G Service (Japan)", role: "Engineer / Lead", dept: "Platform development", summary: "Banking systems integration; iPad storybook and education services" }
+    ]
+  },
+  others: {
+    ko: [
+      { meta: "㈜위밋모빌리티 · 2023.12 – 2024.04", title: "VRP 배송 최적화 엔진 & 동적 권역 배차", body: "기존 VRP 엔진의 Cost Function·Priority 로직 재설계, 실배송 데이터 기반 시뮬레이션 검증. GeoHash 공간 분할과 K-Means 클러스터링 기반 권역 자동 재구성으로 미배차율 약 38% 개선." },
+      { meta: "㈜위밋모빌리티 · 2024.10 – 2024.12", title: "고객사 맞춤형 물류 배차 플랫폼 PoC", body: "엠즈푸드: 적재 효율 향상 물량 배분 알고리즘으로 Balance Index 35% 이상 개선, 실서비스 적용. 딜리버리30: SLA 기반 배차 엔진과 미들마일 정책 설계, 수작업 대비 처리속도 약 10배 향상, 정부 제안형 R&D 과제 선정." },
+      { meta: "㈜데라블 · 2023.07 – 2023.11", title: "Gold & Rose 플랫폼 고도화", body: "Spring Boot 기반 서비스 리팩토링과 REST API 개선, 공통 모듈 재구성. 콘텐츠 처리 로직 성능 최적화 및 유지보수성 중심의 서비스 구조 개선." },
+      { meta: "㈜플렉스미 · 2022.03 – 2022.10", title: "Personal AI Shopper (AI·NFT 패션 커머스)", body: "CNN·GAN 기반 패션의류 서비스 연구개발, Klaytn 기반 DApp·NFT 서비스 구축, Kubernetes·MSA·DevOps 도입 검증." },
+      { meta: "㈜언더핀 · 2018.05 – 2020.12", title: "FANZY — 이중토큰 이코노미 & 블록체인 플랫폼", body: "인센티브형 이중토큰 시스템 설계 및 특허 출원, 보상 알고리즘 적용. Hyperledger Fabric 기반 Mainnet 개발·운영, Solidity ERC-20 발행." },
+      { meta: "씨랩 · 2017.09 – 2018.05", title: "한국어 특화 음성인식(TTS) 엔진", body: "KUR framework 기반 한국어 음성인식 엔진 개발, 주소 음성데이터 전처리와 학습모델 구현, Tacotron 음성합성. 구어체 대화에서 스케줄을 추출해 태스크로 자동 등록하는 알고리즘 개발." },
+      { meta: "㈜씨사이드코리아 · 2016.05 – 2017.09", title: "딥러닝 기반 NLP 타스크 제공 플랫폼", body: "TensorFlow 기반 자연어처리 학습모델 구현 및 특허 등록(1018863730000). 공개 코퍼스를 이용한 word2vec 임베딩 모델 구현." },
+      { meta: "대상정보기술㈜ · 2013.09 – 2016.02", title: "식품정보 서비스 (FoodGuide / Eatsight)", body: "한국식품연구원·서울대 식품영양학과 공동연구. 원재료·영양성분 분석 기반 식품 평가 알고리즘 특허 등록(1014666260000), Eatsight API 구축, TensorFlow 식품유형 자동분류 연구." },
+      { meta: "G&G Service · 2007.10 – 2010.03", title: "금융권 SI 개발 (미쓰비시UFJ은행 외)", body: "VSC 개발 BGP 프로토콜 담당, PICOM 수로신청업무, 三菱UFJ銀行 실적평가시스템 및 BTMU GCMS phase2. 사내 프로젝트 CISOS 프로젝트 리더." }
+    ],
+    en: [
+      { meta: "WeMeet Mobility · 2023.12 – 2024.04", title: "VRP delivery optimization & dynamic zone dispatch", body: "Redesigned the cost function and priority logic of the existing VRP engine and validated it in simulation on real delivery data. GeoHash spatial partitioning plus K-Means clustering rebuilt zones automatically, cutting unassigned orders by about 38%." },
+      { meta: "WeMeet Mobility · 2024.10 – 2024.12", title: "Client-specific dispatch platform PoCs", body: "MZ Food: a volume allocation algorithm for load efficiency improved the Balance Index by over 35% and shipped to production. Delivery30: an SLA-based dispatch engine and middle-mile policy raised throughput roughly 10× over manual work and was selected for a government R&D program." },
+      { meta: "Derable · 2023.07 – 2023.11", title: "Gold & Rose platform upgrade", body: "Refactored the Spring Boot services, improved the REST API and reorganized shared modules. Optimized content-processing performance and restructured the service around maintainability." },
+      { meta: "Flexme · 2022.03 – 2022.10", title: "Personal AI Shopper (AI/NFT fashion commerce)", body: "R&D on fashion apparel services with CNN and GAN, a Klaytn-based DApp with NFT services, and a feasibility review of Kubernetes, MSA and DevOps adoption." },
+      { meta: "Underpin · 2018.05 – 2020.12", title: "FANZY — dual-token economy & blockchain platform", body: "Designed an incentive-based dual-token system (patent filed) and its reward algorithm. Built and operated a Hyperledger Fabric mainnet and issued a Solidity ERC-20 token." },
+      { meta: "C.Lab · 2017.09 – 2018.05", title: "Korean-specialized speech engine", body: "Built a Korean speech recognition engine on the KUR framework, preprocessed address speech data and implemented the training model, plus Tacotron speech synthesis. Also an algorithm that extracts schedule intent from conversational speech and registers it as a task." },
+      { meta: "CSIDEKOREA · 2016.05 – 2017.09", title: "Deep-learning NLP task platform", body: "Implemented TensorFlow NLP training models, patent granted (1018863730000), and a word2vec embedding model trained on public corpora." },
+      { meta: "Daesang IT · 2013.09 – 2016.02", title: "Food information services (FoodGuide / Eatsight)", body: "Joint research with the Korea Food Research Institute and Seoul National University. Food evaluation algorithm from ingredient and nutrient analysis, patent granted (1014666260000); Eatsight API; TensorFlow food-type classification research." },
+      { meta: "G&G Service · 2007.10 – 2010.03", title: "Financial systems integration (MUFG Bank and others)", body: "VSC development owning the BGP protocol, PICOM channel-application work, the MUFG performance evaluation system and BTMU GCMS phase 2. Project lead on the internal CISOS system." }
+    ]
+  },
+  tech: {
+    ko: [
+      { name: "AI · Vision", items: ["PyTorch", "TensorFlow", "OpenCV", "Keras", "Kalman Filter", "GAT / GNN", "CNN · GAN", "Stable Diffusion", "LoRA · ControlNet", "LLaVA", "NLP", "음성인식"] },
+      { name: "Agent · MLOps", items: ["LangGraph", "LangChain", "MCP", "pgvector · RAG", "MLflow", "Claude Code", "Cursor"] },
+      { name: "Backend · Platform", items: ["Java", "Spring Framework", "Spring Boot", "Python", "FastAPI", "C / C++", "Go", "WebSocket", "gRPC", "Redis", "MySQL · Oracle", "SQLite"] },
+      { name: "Infra · Architecture", items: ["Kubernetes", "MSA", "DevOps · CI/CD", "시스템 아키텍처", "알고리즘 설계", "Hyperledger Fabric", "Solidity", "OSRM"] }
+    ],
+    en: [
+      { name: "AI · Vision", items: ["PyTorch", "TensorFlow", "OpenCV", "Keras", "Kalman Filter", "GAT / GNN", "CNN · GAN", "Stable Diffusion", "LoRA · ControlNet", "LLaVA", "NLP", "Speech recognition"] },
+      { name: "Agent · MLOps", items: ["LangGraph", "LangChain", "MCP", "pgvector · RAG", "MLflow", "Claude Code", "Cursor"] },
+      { name: "Backend · Platform", items: ["Java", "Spring Framework", "Spring Boot", "Python", "FastAPI", "C / C++", "Go", "WebSocket", "gRPC", "Redis", "MySQL · Oracle", "SQLite"] },
+      { name: "Infra · Architecture", items: ["Kubernetes", "MSA", "DevOps · CI/CD", "System architecture", "Algorithm design", "Hyperledger Fabric", "Solidity", "OSRM"] }
+    ]
+  },
+  trouble: {
+    billiup: {
+      ko: [
+        { symptom: "조명이 밝은 매장에서 테이블 반사광이 흰 공과 같은 밝기로 검출되어, 한 프레임에 공이 두 개로 잡히는 현상.", cause: "고정 임계값에 가까운 이진화 파라미터가 반사광 영역까지 공 후보로 포함. 색상 정보를 충분히 쓰지 않은 것이 원인.", action: "HSV의 S 채널 하한을 올려 무채색 반사광을 배제하고, Adaptive Threshold 블록 크기를 테이블 ROI 기준으로 재산정. 후처리에 원형도(circularity)와 면적 범위 필터 추가.", result: "반사광 오검출이 사라지고 프레임 처리시간은 이전 수준 유지." },
+        { symptom: "공이 큐대에 가려졌다 나온 직후, 궤적이 실제와 반대 방향으로 튀는 현상.", cause: "관측값이 끊긴 구간에서 Kalman Filter가 직전 속도를 그대로 외삽하고, 재검출된 다른 공을 같은 트랙에 붙임.", action: "관측 실패 프레임 수에 비례해 예측 신뢰도를 감쇠시키고, 재검출 시 거리 게이팅을 벗어난 후보는 매칭 대상에서 제외. 일정 프레임 이상 미검출이면 트랙을 종료하고 재초기화.", result: "가림 복귀 구간의 궤적 튐이 재현되지 않고, 턴 단위 라벨링 오류도 함께 감소." }
+      ],
+      en: [
+        { symptom: "In brightly lit venues, table glare was detected at the same brightness as the white ball, so one frame reported two balls.", cause: "Binarization parameters close to a fixed threshold admitted the glare region as a ball candidate — color information was not being used enough.", action: "Raised the lower bound on the HSV S channel to exclude achromatic glare, recomputed the adaptive-threshold block size against the table ROI, and added circularity and area filters in post-processing.", result: "Glare false positives disappeared while per-frame processing time stayed where it was." },
+        { symptom: "Right after a ball emerged from behind the cue stick, its trajectory jumped in the opposite direction.", cause: "With observations missing, the Kalman Filter extrapolated the previous velocity as-is, and a different re-detected ball was attached to the same track.", action: "Decayed prediction confidence in proportion to the number of missed frames, excluded candidates outside a distance gate from matching on re-detection, and terminated and reinitialized a track after a set number of missed frames.", result: "The post-occlusion trajectory jump stopped reproducing, and per-turn labeling errors fell with it." }
+      ]
+    },
+    mcp: {
+      ko: [
+        { symptom: "\"배송 요청 목록 화면 만들어줘\" 같은 쿼리에서 TMS와 OMS 모듈 코드가 섞여 반환.", cause: "함수 단위 청킹에서 getter/setter처럼 짧은 함수가 정보량은 적은데 유사도 상위에 올라 노이즈로 섞임.", action: "짧은 함수는 클래스 단위로 병합해 임베딩하고, 검색 전 단계에 플랫폼 메타데이터 필터를 적용. 관련성 점수 하한을 두고 미달 시 재질의로 회귀.", result: "상위 검색 결과의 플랫폼 혼입이 사라지고, 재질의 발생 비율도 함께 감소." },
+        { symptom: "human-in-the-loop 재질의에 답한 뒤 그래프를 재개했는데, 이전 상태가 유실되어 처음 질문부터 다시 반복.", cause: "Checkpointer의 thread_id를 클라이언트 세션 단위로 발급해, MCP 클라이언트가 재연결하면 새 스레드가 생성됨.", action: "요청 단위 키로 thread_id를 고정하고, 재개 시 체크포인트 존재 여부를 먼저 확인한 뒤 없을 때만 새로 시작하도록 변경.", result: "재연결 이후에도 중단된 노드부터 재개되고, 재질의 로그가 하나의 흐름으로 이어짐." }
+      ],
+      en: [
+        { symptom: "A query like \"build me the delivery request list screen\" came back with TMS and OMS module code mixed together.", cause: "With function-level chunking, short functions such as getters and setters carried little information yet ranked high on similarity, entering the results as noise.", action: "Merged short functions into class-level embeddings, applied a platform metadata filter ahead of retrieval, and set a relevance floor that returns to a re-query when unmet.", result: "Platform mixing in the top results disappeared, and the re-query rate fell along with it." },
+        { symptom: "After answering a human-in-the-loop re-query, resuming the graph lost the earlier state and repeated the questioning from the start.", cause: "The checkpointer's thread_id was issued per client session, so a reconnecting MCP client created a new thread.", action: "Pinned thread_id to a per-request key and made resumption check for an existing checkpoint first, starting fresh only when none exists.", result: "Execution resumes at the halted node even after a reconnect, and the re-query logs read as one continuous flow." }
+      ]
+    },
+    eta: {
+      ko: [
+        { symptom: "배포 직후 특정 교차로 인접 구간에서 ETA가 일괄적으로 과소 예측.", cause: "해당 구간의 학습 데이터가 야간 배송에 편중되어 있어, 시간대 feature가 주간 정체를 반영하지 못함.", action: "해당 도로 구간·시간대 조합의 보정 테이블 엔트리에 관측 오차만큼 bias를 즉시 반영하고, 다음 재학습 사이클의 테스트 케이스로 편입.", result: "당일 오차가 정상 범위로 복귀했고, 재학습 이후에는 bias 보정 없이도 같은 수준을 유지." },
+        { symptom: "임계치 검증을 통과해 자동 배포된 모델이, 실서비스에서는 오히려 오차가 증가.", cause: "검증 표본이 수도권 주간 경로에 몰려 있어, 임계치 통과가 전체 구간을 대표하지 못함.", action: "검증 표본을 시간대·권역별로 층화 추출하도록 변경하고, 전체 오차와 층별 오차를 함께 확인. 특정 층이 미달하면 자동 배포를 보류하고 알림.", result: "이후 통과한 모델에서 검증치와 실서비스 오차가 어긋나는 사례가 발생하지 않음." }
+      ],
+      en: [
+        { symptom: "Right after a deployment, ETA was uniformly under-predicted on segments adjacent to one intersection.", cause: "Training data for those segments skewed toward night deliveries, so the daypart feature failed to capture daytime congestion.", action: "Added the observed error immediately as a bias correction on that segment/daypart entry in the table, and folded the segment into the next retraining cycle as a test case.", result: "Error returned to normal range the same day, and after retraining it held there without the bias correction." },
+        { symptom: "A model that passed threshold validation and auto-deployed showed higher error in production.", cause: "The validation sample clustered on daytime routes in the greater Seoul area, so passing the threshold did not represent all segments.", action: "Switched to stratified sampling by daypart and region for validation, checking per-stratum error alongside the overall figure, and held deployment with an alert when any stratum fell short.", result: "No further case of a passing model whose production error diverged from its validation figure." }
+      ]
+    },
+    design: {
+      ko: [
+        { symptom: "상품 배경 합성에서, 상품 아래 그림자 방향이 새로 생성된 배경의 조명과 반대로 생성.", cause: "마스크가 상품 영역만 보존하고 원본 그림자는 배경 생성 영역에 포함되어, 두 조명 정보가 충돌.", action: "마스크 경계를 접지 그림자 영역까지 확장하고, ControlNet 조건에 상품 윤곽과 함께 조명 방향을 prompt로 명시. 실패 케이스는 LLaVA 필터링 질문에 추가.", result: "경계 위화감 재생성 요청이 줄고, 케이스당 평균 재생성 횟수도 감소." },
+        { symptom: "새 화풍 LoRA를 배포한 뒤, 특정 프롬프트에서 negative prompt로 배제한 요소가 다시 등장.", cause: "회귀 테스트 케이스 세트가 기존 화풍 기준으로만 구성되어, 신규 LoRA 특성이 검증 범위 밖에 있었음.", action: "LoRA 학습에 사용한 도메인 샘플을 회귀 케이스에 자동 추가하고, LLaVA 필터링 질문을 화풍별로 확장. 승인 절차에 해당 항목 결과를 필수 표시.", result: "동일 유형의 누락이 배포 전 회귀 테스트 단계에서 재현·차단됨." }
+      ],
+      en: [
+        { symptom: "In background compositing, the shadow under the product was generated with a direction opposite to the lighting of the new background.", cause: "The mask preserved only the product area while the original shadow fell inside the generated region, putting two lighting cues in conflict.", action: "Extended the mask boundary to include the contact shadow and stated the lighting direction in the prompt alongside the product contour in the ControlNet conditioning. Failure cases were added to the LLaVA filtering questions.", result: "Regeneration requests over boundary artifacts dropped, as did the average number of regenerations per case." },
+        { symptom: "After releasing a new style LoRA, elements excluded by the negative prompt reappeared for certain prompts.", cause: "The regression test set had been built around the existing styles, leaving the new LoRA's characteristics outside the validated range.", action: "Automatically added the domain samples used to train the LoRA to the regression cases, extended the LLaVA filtering questions per style, and made those results a required field in the approval step.", result: "The same class of miss now reproduces — and is blocked — at the pre-release regression stage." }
+      ]
+    }
+  },
+  releases: [
+    {
+      embed: "https://www.youtube.com/embed/euEfU1jOLGQ",
+      url: "https://youtu.be/euEfU1jOLGQ",
+      period: "2022.10 – 2023.06",
+      ko: { company: "㈜데라블", title: "Design Staff", body: "자연어 요청을 SD prompt로 변환해 이미지를 생성하는 AI 디자인 서비스. Inpainting·ControlNet·LoRA 분기와 LLaVA 자동 검증까지 릴리즈." },
+      en: { company: "Derable Inc.", title: "Design Staff", body: "An AI design service generating images from natural-language requests, released with the inpainting/ControlNet/LoRA branches and LLaVA verification." }
+    },
+    {
+      embed: "https://www.youtube.com/embed/vd3a3oUsAAA",
+      url: "https://youtu.be/vd3a3oUsAAA",
+      period: "2018.05 – 2020.12",
+      ko: { company: "㈜언더핀", title: "FANZY", body: "인센티브형 이중토큰 이코노미 기반 서비스. Hyperledger Fabric Mainnet과 보상 알고리즘을 설계·운영." },
+      en: { company: "Underpin Inc.", title: "FANZY", body: "A service built on an incentive-based dual-token economy, with a Hyperledger Fabric mainnet and reward algorithm designed and operated in production." }
+    },
+    {
+      embed: "https://www.youtube.com/embed/RY8SuBrsWZs",
+      url: "https://youtu.be/RY8SuBrsWZs",
+      period: "2017.09 – 2018.05",
+      ko: { company: "㈜씨사이드코리아", title: "CVIEW", body: "구어체 대화에서 스케줄 관련 발화를 추출해 태스크로 자동 등록하는 자동 태스크 관리 서비스. 백엔드 개발." },
+      en: { company: "CSIDEKOREA Inc.", title: "CVIEW", body: "Automatic task management that extracts schedule intent from conversational speech and registers it as a task. Backend development." }
+    },
+    {
+      embed: "https://www.youtube.com/embed/kZRNfhtDq3I",
+      url: "https://youtu.be/kZRNfhtDq3I",
+      period: "2010.04 – 2011.07",
+      ko: { company: "G&G Service (일본)", title: "imoNavi", body: "iPad 교육 서비스. 기획과 화면 구성·흐름도 설계, 서버 시스템 개발(Java, Spring2.5, iBatis, MySQL)." },
+      en: { company: "G&G Service (Japan)", title: "imoNavi", body: "An iPad education service — product planning, screen and flow design, and the server system (Java, Spring 2.5, iBatis, MySQL)." }
+    }
+  ],
+  ui: {
+    ko: {
+      name: "장건웅",
+      roleShort: "Software Architect",
+      navWork: "프로젝트", navRelease: "릴리즈", navCareer: "경력", navStack: "기술 스택",
+      releaseKicker: "Released services",
+      releaseTitle: "릴리즈한 서비스",
+      releaseLead: "개발을 완료하고 실제 릴리즈까지 진행한 서비스의 소개 영상입니다.",
+      watchOnYoutube: "YouTube에서 보기 →",
+      back: "← 목록으로", nextLabel: "다음",
+      kicker: "Software Architect · AI · Vision · Backend",
+      heroTitle: "빠르게 구현해 문제를 파악하고, 최적의 파이프라인을 설계합니다.",
+      heroLead: "커머스, 물류, 모빌리티, AI, 블록체인을 거치며 소프트웨어 개발과 시스템 아키텍처 설계로 기술 문제를 풀어왔습니다.",
+      heroSub: "최근에는 경로 최적화(VRP)와 ETA 예측, OpenCV 기반 실시간 객체 인식·트래킹, LangGraph·MCP 기반 개발 자동화를 맡아 모델과 그 모델을 운영하는 구조를 함께 설계했습니다. 씨사이드코리아에 파운더로 참여한 이후 씨랩 분사와 언더핀 법인 전환, 데라블 창업으로 이어지는 동안 불확실한 환경의 기술 문제를 주도적으로 해결해왔습니다.",
+      ctaWork: "대표 프로젝트 보기",
+      metricsTitle: "검증된 성과",
+      workKicker: "Selected work",
+      workTitle: "대표 프로젝트 4선",
+      workLead: "아키텍처 판단과 트레이드오프를 중심으로, 실제 구현한 흐름을 그대로 기록했습니다. 카드를 선택하면 상세 페이지로 이동합니다.",
+      readMore: "상세 보기 →",
+      careerKicker: "Career",
+      careerTitle: "경력 18년 3개월",
+      careerNote: "씨사이드코리아 → 씨랩(C.Lab) → 언더핀은 별도의 이직이 아니라, 파운더로 참여해 개발파트 분사와 사업 피벗, 법인 전환으로 이어진 하나의 연속된 사업 전개 과정입니다.",
+      othersKicker: "More projects",
+      othersTitle: "그 외 주요 프로젝트",
+      stackKicker: "Stack",
+      stackTitle: "보유 기술",
+      labelRole: "역할", labelStack: "핵심 기술",
+      secOverview: "프로젝트 개요", secArch: "아키텍처 흐름", secBuild: "구현 상세", secResults: "주요 성과",
+      secTrouble: "트러블슈팅",
+      hypothetical: "가상 시나리오",
+      troubleNote: "실제 구조를 전제로 재구성한 가상 시나리오입니다. 문제 정의와 조치의 판단 흐름을 보여주기 위한 예시로, 실제 장애 기록은 아닙니다.",
+      tSymptom: "증상", tCause: "원인", tAction: "조치", tResult: "결과",
+      footTitle: "연락은 이메일로 부탁드립니다",
+      footNote: "장건웅 · Software Architect"
+    },
+    en: {
+      name: "Kunwoong Jang",
+      roleShort: "Software Architect",
+      navWork: "Work", navRelease: "Released", navCareer: "Career", navStack: "Stack",
+      releaseKicker: "Released services",
+      releaseTitle: "Shipped and released",
+      releaseLead: "Introduction videos for the services that were built through to an actual release.",
+      watchOnYoutube: "Watch on YouTube →",
+      back: "← Back", nextLabel: "Next",
+      kicker: "Software Architect · AI · Vision · Backend",
+      heroTitle: "Build fast, find the real problem, design the right pipeline.",
+      heroLead: "Across commerce, logistics, mobility, AI and blockchain, my work has centered on software development and system architecture as the way to solve technical problems.",
+      heroSub: "Recently that has meant designing both models and the pipelines around them: route optimization (VRP) and ETA prediction, real-time object detection and tracking on OpenCV, and development automation on LangGraph and MCP. Joining CSIDEKOREA as a founder led through the C.Lab spin-off, the Underpin incorporation and founding Derable — a run of environments where the technical problems had to be owned end to end.",
+      ctaWork: "See selected work",
+      metricsTitle: "Measured outcomes",
+      workKicker: "Selected work",
+      workTitle: "Four projects in depth",
+      workLead: "Written around the architectural calls and their trade-offs, following what was actually built. Select a card for the full write-up.",
+      readMore: "Read the write-up →",
+      careerKicker: "Career",
+      careerTitle: "18 years 3 months",
+      careerNote: "CSIDEKOREA → C.Lab → Underpin were not separate job changes: joining as a founder, the development arm was spun off as C.Lab, then pivoted and incorporated as Underpin — one continuous business arc.",
+      othersKicker: "More projects",
+      othersTitle: "Other significant projects",
+      stackKicker: "Stack",
+      stackTitle: "Technologies",
+      labelRole: "Role", labelStack: "Core stack",
+      secOverview: "Overview", secArch: "Architecture", secBuild: "How it was built", secResults: "Outcomes",
+      secTrouble: "Troubleshooting",
+      hypothetical: "Hypothetical",
+      troubleNote: "Hypothetical scenarios reconstructed on top of the real architecture — written to show how the problem was framed and decided, not records of actual incidents.",
+      tSymptom: "Symptom", tCause: "Cause", tAction: "Action", tResult: "Result",
+      footTitle: "Email is the best way to reach me",
+      footNote: "Kunwoong Jang · Software Architect"
+    }
+  },
+  projects: [
+    {
+      key: "billiup", num: "01", flag: "isBilliup",
+      period: "2025.09 – 2026.05",
+      ko: {
+        company: "㈜에이에프비",
+        title: "빌리업 — OpenCV 기반 당구 게임 플랫폼",
+        subtitle: "당구공 객체 인식·트래킹부터 미션존 게임 판정, 부정행위 감지까지 하나의 실시간 비전 시스템으로",
+        role: "연구소장 / 객체 인식·트래킹 엔진 및 백엔드 아키텍처 총괄",
+        stackLine: "OpenCV · Kalman Filter · FastAPI · WebSocket",
+        tags: ["OpenCV", "Kalman Filter", "실시간 트래킹", "FastAPI"],
+        diagramNote: "전처리부터 하이브리드 트래킹, 게임 판정, 데이터셋 축적, 부정행위 감지까지의 실시간 파이프라인.",
+        overview: ["미니PC에 카메라와 프로젝터를 연결해서, 당구공 객체 인식·트래킹부터 미션존 게임, 부정행위 감지까지 하나의 시스템으로 연구개발했습니다."],
+        build: [
+          "먼저 조명 변화와 노이즈에 대응하기 위해 HSV 색공간 변환, Adaptive Threshold, Gaussian·Median Filtering을 전처리로 적용했고요. 트래킹은 매 프레임 단순 좌표 검출만으로는 순간적인 가림이나 노이즈에 취약해서, Kalman Filter로 이전 상태 기반 위치를 예측하고 실제 관측값과 보정하는 방식을 썼습니다. 다만 쿠션이나 다른 공과 충돌하는 순간에는 속도·방향이 급격히 바뀌기 때문에, 이 구간은 Kalman Filter의 선형 예측만으로는 부정확해서 별도 로직으로 처리했습니다. 충돌이 감지되면 그 시점부터는 속도·방향 벡터와 쿠션 반사각을 계산하는 물리 시뮬레이션 로직이 궤적을 담당하고, 충돌 이후 다시 안정적인 이동 구간으로 돌아오면 Kalman Filter 트래킹으로 전환하는 구조였습니다.",
+          "이렇게 프레임 단위로 쌓인 좌표 데이터는, 공이 움직이기 시작해서 모든 공이 멈추는 한 턴 단위로 묶어서 활용했습니다. 미션 성공 조건 판별 로직과 연동해서, 해당 턴의 궤적 데이터에 득점 성공이나 실패 여부를 자동으로 라벨링해 붙이는 로직을 직접 구현했고요. 사람이 일일이 라벨링하지 않아도 실제 플레이 데이터가 곧바로 지도학습용 데이터셋으로 축적되는 구조를 만든 겁니다. 이후 고도화된 AI 모델을 붙일 걸 전제로 한 데이터 파이프라인이었습니다.",
+          "부정행위 감지는 Background Subtraction으로 이상행위를 잡아내되, 그림자 제거와 동적 Threshold 보정, 큐대 오탐지 방지용 마스킹을 거쳐서 가속도·방향벡터 분석으로 최종 판별하는 파이프라인으로 구성했습니다."
+        ],
+        results: [
+          "HSV 색공간 변환, Adaptive Threshold, Gaussian/Median Filtering을 적용한 당구공 객체 인식 알고리즘 설계·개발",
+          "Kalman Filter 기반 위치 예측 트래킹과, 충돌 구간에서는 속도·방향 벡터·쿠션 반사각 기반 물리 시뮬레이션으로 전환하는 하이브리드 트래킹 엔진 구현으로 궤적 정확도 확보",
+          "ROI 기반 미션존 인식·판정 알고리즘 및 Passing 이벤트 판별 로직을 포함한 실시간 게임 엔진 개발",
+          "FastAPI 비동기 REST API 및 WebSocket 기반 실시간 데이터 동기화 백엔드, 관리자(Admin) 웹 시스템 구축",
+          "턴 단위로 궤적 데이터를 자동 라벨링해 지도학습용 데이터셋으로 축적되는 트레이닝·피드백 파이프라인 설계",
+          "Background Subtraction·그림자 제거·Cue Stick 마스킹·가속도 분석 기반 부정행위 감지 엔진 구현"
+        ]
+      },
+      en: {
+        company: "AFB Inc.",
+        title: "Billiup — an OpenCV billiards game platform",
+        subtitle: "Ball detection and tracking, mission-zone game judgment and cheat detection as one real-time vision system",
+        role: "R&D Director / owner of the detection-tracking engine and backend architecture",
+        stackLine: "OpenCV · Kalman Filter · FastAPI · WebSocket",
+        tags: ["OpenCV", "Kalman Filter", "Real-time tracking", "FastAPI"],
+        diagramNote: "The real-time pipeline: preprocessing, hybrid tracking, game judgment, dataset accumulation and integrity checks.",
+        overview: ["With a camera and a projector connected to a mini PC, I researched and built ball detection and tracking, the mission-zone game and cheat detection as a single system."],
+        build: [
+          "Preprocessing handled lighting variation and noise first: HSV color-space conversion, adaptive thresholding and Gaussian/median filtering. Plain per-frame coordinate detection is fragile under momentary occlusion and noise, so tracking used a Kalman Filter to predict position from the previous state and correct it against the observation. At the moment a ball hits a cushion or another ball, however, speed and direction change abruptly, and the filter's linear prediction is no longer accurate — so those intervals were handled separately. Once a collision is detected, physics simulation computing velocity and direction vectors and the cushion reflection angle takes over the trajectory, and when the motion settles again control returns to Kalman Filter tracking.",
+          "The per-frame coordinates were grouped by turn — from the first ball moving to every ball coming to rest. Tied to the mission-success logic, I implemented labeling that automatically attaches score success or failure to that turn's trajectory data. Real play accumulates directly into a supervised-learning dataset with no manual labeling, a data pipeline built on the premise that a stronger AI model would be attached later.",
+          "Cheat detection began with background subtraction to surface anomalies, then shadow removal, dynamic threshold correction and masking to keep the cue stick from producing false positives, with acceleration and direction-vector analysis making the final call."
+        ],
+        results: [
+          "Designed and built the ball detection algorithm on HSV conversion, adaptive thresholding and Gaussian/median filtering",
+          "Implemented a hybrid tracking engine — Kalman Filter position prediction, switching to velocity/direction-vector and cushion-reflection physics simulation through collisions — to hold trajectory accuracy",
+          "Built the real-time game engine including ROI mission-zone recognition and judgment plus passing-event detection",
+          "Built the backend on FastAPI async REST plus WebSocket real-time synchronization, with an admin web system",
+          "Designed the training and feedback pipeline that auto-labels trajectory data per turn into a supervised dataset",
+          "Implemented cheat detection from background subtraction, shadow removal, cue-stick masking and acceleration analysis"
+        ]
+      }
+    },
+    {
+      key: "mcp", num: "02", flag: "isMcp",
+      period: "2025.01 – 2025.06",
+      ko: {
+        company: "㈜위밋모빌리티",
+        title: "MCP 기반 모듈식 개발 자동화 아키텍처",
+        subtitle: "TMS·WMS·OMS 모듈을 Tool 단위로 나누고, Supervisor Agent와 코드 RAG로 조합·커스터마이징을 자동화",
+        role: "연구소장·팀장 / 플랫폼 아키텍처 총괄 및 MCP 개발 자동화 확장 리드",
+        stackLine: "LangGraph · LangChain · MCP · pgvector · gRPC",
+        tags: ["MCP", "LangGraph", "Code RAG", "gRPC"],
+        diagramNote: "Claude Code를 MCP 클라이언트로, Supervisor Agent가 라우팅하고 서브 Agent가 코드 RAG로 모듈을 찾아오는 구조.",
+        overview: ["목적은 고객사 요청사항에 맞춰서, TMS·WMS·OMS 각 플랫폼에서 적합한 모듈을 골라 빠르게 조합·커스터마이징 개발할 수 있게 만드는 것이었습니다."],
+        build: [
+          "개발자는 Claude Code를 MCP 클라이언트로 사용해서 Supervisor Agent에 연결합니다. Supervisor Agent는 개발자의 자연어 쿼리를 분석해서 어느 플랫폼 관련 요청인지 판별하는데, 쿼리만으로 플랫폼이 명확하지 않으면 LangGraph의 Checkpointer 기반 human-in-the-loop 흐름으로 그래프 실행을 멈추고 개발자에게 재질의합니다. 이때 실행 상태를 그냥 재개용으로만 쓴 게 아니라 로그로 축적해서, 어떤 쿼리에서 재질의가 자주 발생하는지, 어느 단계에서 병목이 생기는지 모니터링할 수 있게 설계했습니다. 반대로 TMS와 WMS처럼 복수 플랫폼에 걸친 요청이면, 해당 서브 Agent 노드들을 병렬로 호출하고 취합 노드에서 결과를 모으는 구조입니다.",
+          "각 플랫폼 서브 Agent는 pgvector에 함수 단위로 청킹해 임베딩해둔 모듈 코드를 RAG로 검색해서 관련 코드를 가져옵니다. 함수 본문뿐 아니라 주석과 docstring도 함께 포함해서 임베딩했는데, 코드만으로는 그 함수가 왜 존재하는지 잘 안 드러나는 경우가 있어서 주석에 담긴 의도 정보까지 검색에 활용될 수 있게 한 겁니다. 검색 결과의 관련성이 낮으면 이 경우에도 곧바로 반환하지 않고 개발자에게 추가 정보를 재질의하는 흐름으로 되돌립니다. 이렇게 검색된 코드는 Claude Code로 전달되고, 실제 조합·커스터마이징·최종 코드 작성은 Claude Code가 개발자 컨텍스트 안에서 수행합니다.",
+          "전체 흐름의 상태 관리는 LangGraph로, 개별 Tool과 체인 정의는 LangChain으로 구성했습니다."
+        ],
+        results: [
+          "TMS, WMS, OMS 등 물류 도메인 간 연계 구조 정의 및 확장성·유지보수성을 고려한 모듈형 플랫폼 구조 설계",
+          "PoC 기반 검증을 전제로 한 단계적 아키텍처 구축 전략 및 고객사 요구사항 반영 시스템 확장 로드맵 수립",
+          "TMS/WMS/OMS 핵심 기능을 Tool 단위로 모듈화한 Context 기반 구조로 고도화, MCP 서버–마이크로서비스 간 gRPC 통신 구조 정의",
+          "LangGraph 기반 Supervisor Agent가 쿼리를 판별해 서브 Agent를 라우팅하고, 모호한 요청은 human-in-the-loop로 재질의하는 흐름 구현",
+          "pgvector 기반 함수 단위 코드 RAG 검색 구조 구축, Tool 호출 신뢰성 확보를 위한 로깅·모니터링 체계 구축",
+          "Claude Code를 MCP 클라이언트로 연결해, 개발자가 플랫폼별 모듈을 검색·조합·커스터마이징하는 개발 자동화 환경 구현"
+        ]
+      },
+      en: {
+        company: "WeMeet Mobility",
+        title: "MCP-based modular development automation",
+        subtitle: "TMS, WMS and OMS modules exposed as tools, with a supervisor agent and code RAG automating assembly and customization",
+        role: "R&D Director / platform architecture owner, lead on the MCP automation extension",
+        stackLine: "LangGraph · LangChain · MCP · pgvector · gRPC",
+        tags: ["MCP", "LangGraph", "Code RAG", "gRPC"],
+        diagramNote: "Claude Code as the MCP client, a supervisor agent routing the query, sub-agents retrieving modules through code RAG.",
+        overview: ["The goal was to let developers pick the right modules from the TMS, WMS and OMS platforms and assemble and customize them quickly against each client's requirements."],
+        build: [
+          "The developer connects to the supervisor agent with Claude Code as the MCP client. The supervisor analyzes the natural-language query to decide which platform it concerns; when the query alone is not clear enough, a LangGraph checkpointer-based human-in-the-loop flow halts graph execution and asks the developer back. That execution state was not only kept for resumption but accumulated as logs, so we could monitor which queries trigger re-questioning most and where the bottlenecks are. When a request spans platforms — TMS and WMS together, say — the relevant sub-agent nodes are called in parallel and an aggregation node collects the results.",
+          "Each platform sub-agent retrieves module code from pgvector, where it is chunked and embedded per function. Comments and docstrings are embedded along with the function body: code alone often does not reveal why a function exists, so the intent captured in comments becomes searchable too. When retrieval relevance is low the flow again returns to asking the developer for more information rather than answering immediately. Retrieved code is handed to Claude Code, which performs the actual assembly, customization and final code writing inside the developer's context.",
+          "State across the whole flow is managed with LangGraph; individual tools and chains are defined with LangChain."
+        ],
+        results: [
+          "Defined the integration structure across the TMS, WMS and OMS logistics domains and designed a modular platform structure for extensibility and maintainability",
+          "Set a staged architecture strategy premised on PoC validation, plus an expansion roadmap reflecting client requirements",
+          "Advanced the core TMS/WMS/OMS functions into a context-based structure modularized per tool, and defined gRPC communication between the MCP server and the microservices",
+          "Implemented the LangGraph supervisor agent that classifies queries, routes sub-agents and returns ambiguous requests to a human-in-the-loop re-query",
+          "Built function-level code RAG retrieval on pgvector, with logging and monitoring for tool-call reliability",
+          "Connected Claude Code as the MCP client so developers can search, assemble and customize platform modules"
+        ]
+      }
+    },
+    {
+      key: "eta", num: "03", flag: "isEta",
+      period: "2024.05 – 2024.09",
+      ko: {
+        company: "㈜위밋모빌리티",
+        title: "ETA 예측 모델 MLOps 파이프라인",
+        subtitle: "21개 컨테이너로 나뉘어 있던 보정 엔진을 GAT 단일 모델로 통합하고, 재학습·검증·배포·모니터링을 하나의 루프로",
+        role: "ML 모델 설계 및 MLOps 파이프라인 구축 리드",
+        stackLine: "GAT · MLflow · Redis · OSRM",
+        tags: ["GAT", "MLOps", "MLflow", "Redis"],
+        diagramNote: "학습 트리거부터 임계치 검증 자동 배포, Redis 보정 테이블 서빙, 오차 모니터링과 이중 보정 루프까지.",
+        overview: ["기존 ETA 엔진은 도로와 시간이라는 두 축의 매트릭스 구조로, 시간대, 그러니까 아침·점심·저녁 세 구간과 요일을 곱한 조합마다 별도로 보정된 엔진을 총 21개의 컨테이너로 항시 띄워 운영하고 있었습니다. 컨테이너가 항상 가동 상태여야 해서 클라우드 리소스 비용 부담이 컸고, 조합 수가 많다 보니 오차율을 개별적으로 보정·관리하기도 어려운 구조였습니다."],
+        build: [
+          "모델은 도로망을 Line Graph로 변환해서 도로 구간을 노드로, 시간대·요일을 노드 feature로 다루는 GAT 기반 단일 모델로 통합했습니다. 파일럿 단계라 수도권 지역으로 범위를 한정해 검증했고요. 다만 이 프로젝트에서 제가 특히 중점을 둔 건, 이 모델을 안전하게 재학습·배포·운영하는 파이프라인 쪽이었습니다.",
+          "재학습은 국토교통부 도로 데이터의 누적량을 기준으로 자동 트리거되도록 했습니다. 재학습된 모델은 카카오맵 ETA와 비교하는 자동화 파이프라인을 거치는데, 오차율 임계치 비교라는 정형화된 기준이라 사람이 봐도 판단이 달라지지 않는 성격이었고, 그래서 이 검증을 통과하면 자동으로 프로덕션에 배포되도록 설계했습니다. MLflow로 매 실험의 하이퍼파라미터와 성능 지표를 추적하고 모델 버전을 관리했습니다.",
+          "서빙 대상은 도로 구간과 21개 시간대·요일 조합으로 만든 보정 테이블이고, Redis에 저장해서 조회했습니다. GAT를 실시간으로 돌리는 게 아니라 재학습 시점에 테이블 전체를 갱신해두고, ETA 요청이 오면 OSRM이 탐색한 경로의 도로 구간들에 대해 Redis에서 보정값을 조회합니다. 경로에 포함된 각 도로 구간마다 구간 길이를 보정된 속도로 나눠서 개별 소요시간을 계산하고, 이걸 경로 전체에 대해 합산해서 최종 ETA를 산출하는 방식이라 서빙 지연시간 부담이 거의 없었습니다.",
+          "배포 이후에는 실제 배송 완료 시간과 예측 ETA를 비교해서 오차율을 계속 모니터링했습니다. 다만 ETA는 교통 상황의 불확실성 때문에 원천적으로 완벽하게 맞힐 수 없어서, 알림이 온다고 즉시 자동으로 고칠 수 있는 구조는 아니었습니다. 대신 오차가 크게 난 경로를 계속 수집해뒀습니다. 재학습을 기다리지 않고도 빠르게 대응할 수 있도록, 해당 도로 구간·시간대 조합의 보정 테이블 엔트리에 관측된 오차만큼 bias 보정값을 즉시 더해 반영했고, 다음 정식 재학습 사이클에는 이 구간을 테스트 케이스로 포함시켜서 모델 자체가 이 패턴을 학습하도록 했습니다. 단기적으로는 bias 보정으로 즉각 대응하고, 장기적으로는 재학습으로 근본 반영하는 이중 구조였습니다. 배포는 자동화했지만 롤백은 원인 파악이 먼저 필요한 판단이라 의도적으로 수동으로 남겨뒀습니다.",
+          "이렇게 재학습부터 검증, 배포, 모니터링, 재학습 반영까지 하나의 개선 루프로 구성한 게 이 파이프라인의 핵심이었고, 파일럿 결과 기존 OSRM 기반 대비 평균 ETA 오차율을 약 17% 개선했습니다."
+        ],
+        results: [
+          "도로망을 Line Graph로 변환한 GAT 기반 단일 모델로, 21개 시간대·요일별 개별 컨테이너 운영 구조를 통합",
+          "국토교통부 도로 데이터 누적량 기준 자동 재학습 트리거, 임계치 검증 통과 시 자동 배포되는 파이프라인 구축",
+          "MLflow 기반 실험/모델 버전 관리, Redis 기반 보정 테이블 서빙으로 실시간 지연시간 최소화",
+          "관측 오차에 대한 즉시 bias 보정과 재학습 반영의 이중 구조 운영, 기존 OSRM 기반 대비 평균 ETA 오차율 약 17% 개선"
+        ]
+      },
+      en: {
+        company: "WeMeet Mobility",
+        title: "MLOps pipeline for ETA prediction",
+        subtitle: "Twenty-one separately calibrated containers consolidated into one GAT model, with retraining, validation, deployment and monitoring as a single loop",
+        role: "Lead on ML model design and the MLOps pipeline",
+        stackLine: "GAT · MLflow · Redis · OSRM",
+        tags: ["GAT", "MLOps", "MLflow", "Redis"],
+        diagramNote: "From the retraining trigger through threshold-gated auto deployment, Redis table serving, error monitoring and the two-tier correction loop.",
+        overview: ["The existing ETA engine was a matrix over two axes, road and time: for every combination of three dayparts and day of week, a separately calibrated engine ran as one of twenty-one always-on containers. Keeping them all live carried a heavy cloud cost, and with that many combinations, calibrating and managing error rates individually was difficult."],
+        build: [
+          "The model was consolidated into a single GAT: the road network converted into a line graph, road segments as nodes, daypart and day of week as node features. As a pilot, validation was scoped to the greater Seoul area. What I focused on most, though, was the pipeline for retraining, deploying and operating that model safely.",
+          "Retraining triggers automatically on the accumulated volume of Ministry of Land road data. A retrained model then passes through an automated pipeline that compares it against Kakao Map ETA; because that is a formalized comparison against an error-rate threshold — the kind of judgment a human would not decide differently — passing it deploys to production automatically. MLflow tracked hyperparameters and metrics for every experiment and managed model versions.",
+          "What is served is a correction table built over road segments and the twenty-one daypart/day-of-week combinations, stored in and read from Redis. Rather than running the GAT in real time, the whole table is refreshed at retraining; an ETA request looks up correction values in Redis for the road segments on the route OSRM found. Each segment's length divided by its corrected speed gives a per-segment duration, and those are summed across the route for the final ETA — so serving latency was effectively free.",
+          "After deployment, actual delivery completion times were continuously compared against predicted ETAs. ETA can never be perfectly right given traffic uncertainty, so an alert could not simply trigger an automatic fix. Instead, routes with large errors were collected. To respond without waiting for retraining, the observed error was added immediately as a bias correction to that segment/daypart entry in the table, and the segment was included as a test case in the next formal retraining cycle so the model itself learned the pattern. Bias correction for the short term, retraining for the root cause — a two-tier structure. Deployment was automated, but rollback was deliberately left manual, since it is a judgment that requires understanding the cause first.",
+          "Composing retraining, validation, deployment, monitoring and feedback into one improvement loop was the core of this pipeline; in the pilot it cut mean ETA error by about 17% against the OSRM baseline."
+        ],
+        results: [
+          "Consolidated twenty-one per-daypart/day-of-week containers into a single GAT model over the road network as a line graph",
+          "Built automatic retraining triggered by accumulated Ministry of Land road data, with auto deployment on passing threshold validation",
+          "Tracked experiments and model versions in MLflow; served the correction table from Redis to keep real-time latency minimal",
+          "Ran a two-tier structure of immediate bias correction and retraining feedback, cutting mean ETA error about 17% against the OSRM baseline"
+        ]
+      }
+    },
+    {
+      key: "design", num: "04", flag: "isDesign",
+      period: "2022.10 – 2023.06",
+      ko: {
+        company: "㈜데라블",
+        title: "Design Staff — AI 이미지 생성 파이프라인",
+        subtitle: "LLM 프롬프트 변환, Inpainting·ControlNet·LoRA 분기, LLaVA 자동 검증과 회귀 테스트까지의 LLMOps",
+        role: "연구소장 / AI 파이프라인 및 백엔드 아키텍처 총괄",
+        stackLine: "Llama · Stable Diffusion · LoRA · ControlNet · LLaVA · Spring Boot",
+        tags: ["Stable Diffusion", "LoRA · ControlNet", "LLaVA", "LLMOps"],
+        diagramNote: "프롬프트 변환에서 세 가지 생성 케이스, LoRA 화풍 고정, LLaVA 검증 루프와 배포 승인까지.",
+        overview: ["유저가 만들고 싶은 이미지를 자연어로 입력하면, Llama 기반 LLM이 이를 이미지 생성에 적합한 영문 prompt로 변환합니다. 단순 번역이 아니라 Stable Diffusion이 잘 알아듣는 화풍이나 구도, 스타일 키워드까지 포함한 형태로 재구성하는 역할이었고, 파인튜닝 없이 프롬프트 엔지니어링만으로 구현했습니다."],
+        build: [
+          "기본적으로는 이렇게 변환된 prompt만으로 Stable Diffusion이 바로 이미지를 생성합니다. 다만 여기에 두 가지 경우를 추가로 지원했는데, 하나는 유저가 자기 상품 이미지, 그러니까 화장품 사진 같은 걸 업로드하고 원하는 배경을 요청하는 경우입니다. 이때는 상품 영역에 마스크를 씌워서 해당 영역은 원본 그대로 보존하고, 마스크 바깥의 배경 영역만 prompt에 맞춰 새로 생성하는 Inpainting 방식으로 처리했습니다. 다만 마스킹만으로는 상품과 새로 생성된 배경의 경계, 조명이나 그림자 방향 같은 게 부자연스럽게 이어질 수 있어서, ControlNet으로 상품의 윤곽·구조 정보를 함께 조건으로 반영해서 배경이 상품과 자연스럽게 어우러지도록 보정했습니다. 다른 하나는 이전에 만들었던 결과물의 분위기나 인물을 계승해서 새 이미지를 만들고 싶은 경우로, 과거 생성 이미지와 그때 쓴 prompt를 쌍으로 벡터DB에 저장해두고, 유저 질의와 유사한 과거 결과물을 이미지 검색으로 찾아서 ControlNet의 reference-only 입력으로 활용하고, 별도로 생성한 새 prompt는 SD의 text prompt로 함께 전달하는 구조였습니다.",
+          "이 세 가지 경우 모두에, 배경화면 생성 특화나 만화풍 인물 생성 특화처럼 도메인별로 학습해둔 LoRA를 플러그인처럼 필요할 때 로드해서 화풍을 특정 스타일로 고정할 수 있게 했습니다. LoRA는 베이스 모델 가중치를 직접 건드리지 않고 저랭크 어댑터를 얹는 방식이라, 상황에 맞는 화풍의 LoRA를 실시간으로 교체해서 쓸 수 있었습니다.",
+          "생성된 이미지는 LLaVA로 검증합니다. 하나는 유저의 원래 쿼리를 그대로 LLaVA에 다시 질문해서 이미지가 요청과 일치하는지 확인하는 정합성 체크였고, 다른 하나는 negative prompt에 명시해둔 배제 요소들이 실제로 잘 걸러졌는지 고정된 질문 여러 개로 확인하는 필터링 체크였습니다. 생성 이미지는 정답이 정해진 게 아니다 보니, 완벽히 일치하는지보다는 배제해야 할 요소가 안 들어갔는지를 판단하는 게 더 명확한 기준이라고 봤습니다. 검증에 실패하면 prompt를 조정해서 재생성하는 루프를 거쳤습니다.",
+          "새로운 화풍이 필요해서 LoRA를 새로 학습한 뒤에는, 곧바로 서비스에 반영하지 않고 고정된 테스트 케이스 세트에 해당 LoRA를 로드한 상태로 이미지를 자동 생성시키고, LLaVA로 1차 채점하는 회귀 테스트를 거쳤습니다. 그 결과를 최종적으로 제가 직접 검토해서, 이 LoRA를 실제 서비스에 배포할지 승인하는 절차로 운영했습니다."
+        ],
+        results: [
+          "Llama 기반 LLM으로 자연어 요청을 SD 특화 prompt로 변환하는 프롬프트 엔지니어링 파이프라인 구축",
+          "상품 이미지 보존이 필요한 경우 Inpainting + ControlNet으로 배경 합성, 과거 결과물 계승이 필요한 경우 벡터DB 이미지 검색 + ControlNet reference-only 입력으로 처리하는 이원화 구조 설계",
+          "도메인별 LoRA를 실시간 로드하는 화풍 전환 구조, LLaVA 기반 정합성·필터링 자동 검증 및 재생성 루프 구현",
+          "고정 테스트 케이스 기반 LoRA 회귀 테스트 및 배포 승인 체계 운영, LLM API 비용·응답지연 모니터링 대시보드 구축",
+          "Spring Boot 기반 Design Staff 서비스 아키텍처 설계·개발, 공통 인증 모듈 및 이미지 처리 공통 모듈 구축"
+        ]
+      },
+      en: {
+        company: "Derable Inc.",
+        title: "Design Staff — an AI image generation pipeline",
+        subtitle: "LLM prompt rewriting, inpainting/ControlNet/LoRA branches, and LLaVA verification and regression testing as LLMOps",
+        role: "R&D Director / owner of the AI pipeline and backend architecture",
+        stackLine: "Llama · Stable Diffusion · LoRA · ControlNet · LLaVA · Spring Boot",
+        tags: ["Stable Diffusion", "LoRA · ControlNet", "LLaVA", "LLMOps"],
+        diagramNote: "From prompt rewriting through the three generation cases, LoRA style fixing, the LLaVA verification loop and release approval.",
+        overview: ["The user describes the image they want in natural language, and a Llama-based LLM converts it into an English prompt suited to image generation. Not a translation: a reconstruction that includes the style, composition and keyword vocabulary Stable Diffusion responds to, implemented with prompt engineering alone, no fine-tuning."],
+        build: [
+          "By default Stable Diffusion generates directly from that converted prompt. Two additional cases were supported. In the first, the user uploads their own product image — a cosmetics shot, say — and requests a background. There, a mask over the product area preserves it exactly and inpainting regenerates only the background outside the mask according to the prompt. Masking alone can leave the boundary, lighting or shadow direction between product and new background looking wrong, so ControlNet also conditions on the product's contour and structure so the background sits naturally with it. In the second, the user wants to carry the mood or the person from an earlier result into a new image: past generated images and the prompts used for them were stored as pairs in a vector DB, similar past results were found by image search and fed to ControlNet as reference-only input, while a separately generated new prompt went to SD as the text prompt.",
+          "In all three cases, LoRAs trained per domain — one for backgrounds, one for comic-style figures — could be loaded like plugins to pin the output to a particular style. Because LoRA layers a low-rank adapter on top rather than touching base model weights, the appropriate style could be swapped in at runtime.",
+          "Generated images were verified with LLaVA. One check asked LLaVA the user's original query back to confirm the image matched the request; the other used several fixed questions to confirm that the exclusions declared in the negative prompt had actually been filtered out. Since a generated image has no single correct answer, judging whether the elements that must be excluded stayed out is a clearer criterion than judging perfect agreement. On failure, the prompt was adjusted and the image regenerated.",
+          "When a new style required training a new LoRA, it did not go straight to the service. Images were generated automatically against a fixed test-case set with that LoRA loaded, LLaVA scored them as a first pass, and I reviewed the result myself to approve deployment."
+        ],
+        results: [
+          "Built the prompt-engineering pipeline converting natural-language requests into SD-specific prompts with a Llama-based LLM",
+          "Designed the two-branch structure: inpainting plus ControlNet for background compositing when the product image must be preserved, and vector-DB image search plus ControlNet reference-only input when an earlier result must be carried forward",
+          "Implemented runtime LoRA loading for style switching, plus automated LLaVA consistency and filtering checks with a regeneration loop",
+          "Ran LoRA regression testing against fixed test cases with a release-approval step, and built a dashboard monitoring LLM API cost and latency",
+          "Designed and built the Spring Boot Design Staff service architecture with shared authentication and image-processing modules"
+        ]
+      }
+    }
+  ]
+};
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { lang: props.defaultLang === "en" ? "en" : "ko", detail: null };
+  }
+
+  componentDidMount() {
+    this._onKey = (e) => { if (e.key === "Escape" && this.state.detail) this.setState({ detail: null }); };
+    window.addEventListener("keydown", this._onKey);
+  }
+  componentWillUnmount() { window.removeEventListener("keydown", this._onKey); }
+
+  open(key) {
+    this.setState({ detail: key });
+    window.scrollTo(0, 0);
+  }
+
+  segStyle(active) {
+    return {
+      cursor: "pointer",
+      fontFamily: "inherit",
+      fontSize: "12px",
+      letterSpacing: "0.04em",
+      padding: "6px 12px",
+      border: "none",
+      background: active ? "var(--color-accent-900)" : "transparent",
+      color: active ? "var(--color-accent-200)" : "var(--color-neutral-500)"
+    };
+  }
+
+  renderVals() {
+    const L = this.state.lang;
+    const t = D.ui[L];
+    const list = D.projects;
+    const featured = list.map((p) => ({
+      key: p.key,
+      num: p.num,
+      period: p.period,
+      company: p[L].company,
+      title: p[L].title,
+      subtitle: p[L].subtitle,
+      tags: p[L].tags,
+      open: () => this.open(p.key)
+    }));
+
+    let detail = null;
+    if (this.state.detail) {
+      const i = list.findIndex((p) => p.key === this.state.detail);
+      const p = list[i];
+      const nx = list[(i + 1) % list.length];
+      detail = Object.assign({}, p[L], {
+        num: p.num,
+        period: p.period,
+        isBilliup: p.flag === "isBilliup",
+        isMcp: p.flag === "isMcp",
+        isEta: p.flag === "isEta",
+        isDesign: p.flag === "isDesign",
+        trouble: D.trouble[p.key][L],
+        next: nx[L].title,
+        openNext: () => this.open(nx.key)
+      });
+    }
+
+    return {
+      t,
+      facts: D.facts[L],
+      metrics: D.metrics[L],
+      timeline: D.timeline[L],
+      others: D.others[L],
+      releases: D.releases.map((v) => Object.assign({ embed: v.embed, url: v.url, period: v.period }, v[L])),
+      techGroups: D.tech[L],
+      featured,
+      detail,
+      isList: !detail,
+      showOthers: this.props.showOtherProjects !== false,
+      showTimelineSummary: this.props.compactTimeline !== true,
+      koBtnStyle: this.segStyle(L === "ko"),
+      enBtnStyle: this.segStyle(L === "en"),
+      setKo: () => this.setState({ lang: "ko" }),
+      setEn: () => this.setState({ lang: "en" }),
+      closeDetail: () => { this.setState({ detail: null }); window.scrollTo(0, 0); }
+    };
+  }
+}
+</script>
+</body>
+</html>
