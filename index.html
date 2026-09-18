@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>장건웅 — Software Architect</title>
 <meta name="description" content="장건웅 포트폴리오 — AI·Vision·Backend 시스템 아키텍처, 물류 최적화, MLOps.">
+
+<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="장건웅 — Software Architect">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:url" content="https://gw-portfolio-delta.vercel.app/">
+<meta property="og:title" content="장건웅 — Software Architect">
+<meta property="og:description" content="AI·Vision·Backend 시스템 아키텍처, 물류 최적화, MLOps. 18년간의 대표 프로젝트를 정리했습니다.">
+<meta property="og:image" content="https://gw-portfolio-delta.vercel.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="장건웅 — Software Architect">
+<meta name="twitter:description" content="AI·Vision·Backend 시스템 아키텍처, 물류 최적화, MLOps.">
+<meta name="twitter:image" content="https://gw-portfolio-delta.vercel.app/assets/og-image.png">
+
+<!-- React/ReactDOM are vendored locally (see assets/README-react-vendoring.md) so the page
+     renders even when unpkg.com is unreachable (corporate proxy, ad blocker, CDN outage).
+     support.js only fetches from the CDN when window.React/window.ReactDOM are missing. -->
+<script src="./assets/react.production.min.js"></script>
+<script src="./assets/react-dom.production.min.js"></script>
 <script src="./assets/support.js"></script>
 </head>
 <body>
@@ -28,7 +50,7 @@
 <div style="min-height: 100vh; background: radial-gradient(120% 60% at 12% -10%, #1e2138 0%, var(--color-bg) 62%);">
 
   <div style="position: sticky; top: 0; z-index: 20; backdrop-filter: blur(10px); background: color-mix(in srgb, var(--color-bg) 84%, transparent); border-bottom: 1px solid var(--color-neutral-900);">
-    <div style="max-width: 1080px; margin: 0 auto; padding: 12px 32px; display: flex; align-items: center; gap: 24px;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 12px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px;">
       <div style="display: flex; align-items: baseline; gap: 10px; margin-right: auto;">
         <span style="font-size: 15px; font-weight: 500; letter-spacing: -0.01em;">{{ t.name }}</span>
         <span style="font-size: 12px; color: var(--color-neutral-500);">{{ t.roleShort }}</span>
@@ -75,7 +97,7 @@
     <section style="background: linear-gradient(180deg, var(--color-section) 0%, #1f2350 100%); border-top: 1px solid var(--color-section-glow); border-bottom: 1px solid var(--color-section-glow);">
       <div style="max-width: 1080px; margin: 0 auto; padding: 52px 32px;">
         <div style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-300); margin-bottom: 28px;">{{ t.metricsTitle }}</div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 32px 28px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr)); gap: 32px 28px;">
           <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
             <div>
               <div style="font-size: 42px; line-height: 1; letter-spacing: -0.03em; color: var(--color-neutral-100); margin-bottom: 10px;">{{ m.value }}</div>
@@ -91,7 +113,7 @@
       <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.workKicker }}</h2>
       <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 14px;">{{ t.workTitle }}</h3>
       <p style="font-size: 15px; color: var(--color-neutral-500); max-width: 60ch; margin: 0 0 40px;">{{ t.workLead }}</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(430px, 1fr)); gap: 20px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(430px, 100%), 1fr)); gap: 20px;">
         <sc-for list="{{ featured }}" as="p" hint-placeholder-count="4">
           <button type="button" onClick="{{ p.open }}" style="text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 14px; padding: 26px; background: var(--color-surface); border: 1px solid var(--color-neutral-800); border-radius: var(--radius-lg); color: var(--color-text); font-family: inherit; transition: border-color .18s, transform .18s;" style-hover="border-color: var(--color-accent-600); transform: translateY(-2px);">
             <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--color-neutral-500);">
@@ -119,7 +141,7 @@
       <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.releaseKicker }}</h2>
       <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 14px;">{{ t.releaseTitle }}</h3>
       <p style="font-size: 15px; color: var(--color-neutral-500); max-width: 60ch; margin: 0 0 40px;">{{ t.releaseLead }}</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 26px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 26px;">
         <sc-for list="{{ releases }}" as="v" hint-placeholder-count="4">
           <figure style="margin: 0; border: 1px solid var(--color-neutral-800); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface);">
             <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--color-neutral-900);">
@@ -171,7 +193,7 @@
     <section style="max-width: 1080px; margin: 0 auto; padding: 88px 32px 0;">
       <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.othersKicker }}</h2>
       <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 40px;">{{ t.othersTitle }}</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 18px;">
         <sc-for list="{{ others }}" as="o" hint-placeholder-count="6">
           <div style="padding: 20px 22px; border: 1px solid var(--color-neutral-900); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-surface) 55%, transparent);">
             <div style="font-size: 12px; color: var(--color-neutral-600); margin-bottom: 8px;">{{ o.meta }}</div>
@@ -186,7 +208,7 @@
     <section id="stack" style="max-width: 1080px; margin: 0 auto; padding: 88px 32px 0; scroll-margin-top: 72px;">
       <h2 style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 10px;">{{ t.stackKicker }}</h2>
       <h3 style="font-size: 34px; letter-spacing: -0.02em; margin: 0 0 40px;">{{ t.stackTitle }}</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 34px 40px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 34px 40px;">
         <sc-for list="{{ techGroups }}" as="g" hint-placeholder-count="4">
           <div>
             <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-400); margin-bottom: 14px;">{{ g.name }}</div>
